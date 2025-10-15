@@ -7,7 +7,7 @@
 ## Importando as Bibliotecas ## 
 
 import numpy as np 
-import matplotlib.pyplot as mp 
+import matplotlib.pyplot as plt 
 import math 
 
 pi = math.pi 
@@ -28,6 +28,15 @@ def calcula_omega_novo(omega_velho, E_novo, E_velho):
 def calcula_torque_induzido(Ea, Ia, omega):
     torque = (Ea*Ia)/(omega*2*pi/60)
     return torque 
+
+def plota_grafico(eixo_x, eixo_y,nome_x,nome_y):
+    plt.figure()
+    plt.plot(eixo_x, eixo_y)
+    plt.xlabel(nome_x)
+    plt.ylabel(nome_y)
+    plt.xlim(0,600)
+    plt.ylim(0,1300)
+    plt.show()
 
 ## Programa principal ## 
 
@@ -50,4 +59,7 @@ for corrente in Ia:
     torque = calcula_torque_induzido(Ea, corrente, omega_n)
     torque_induzido.append(torque)
     print(f'Para uma corrente de Ia = {corrente}A: Ea = {Ea} V, Velocidade Angular = {omega_n} RPM e o Torque Induzido é {torque} Nm')
+
+plota_grafico(torque_induzido, omega_novo, "Torque (Nm)", "Velocidade (RPM)")
+
 
