@@ -38,6 +38,14 @@ def plota_grafico(eixo_x, eixo_y,nome_x,nome_y):
     plt.ylim(0,1300)
     plt.show()
 
+def plota_grafico_duplo(eixo_x, eixo_y1, eixo_y2):
+    plt.figure()
+    plt.plot(eixo_x, eixo_y1)
+    plt.plot(eixo_x, eixo_y2)
+    plt.xlim(0,600)
+    plt.ylim(0,1300)
+    plt.show()
+
 ## Programa principal ## 
 
 vt = int(input("Insira a tensão de alimentação: "))
@@ -60,6 +68,23 @@ for corrente in Ia:
     torque_induzido.append(torque)
     print(f'Para uma corrente de Ia = {corrente}A: Ea = {Ea} V, Velocidade Angular = {omega_n} RPM e o Torque Induzido é {torque} Nm')
 
-plota_grafico(torque_induzido, omega_novo, "Torque (Nm)", "Velocidade (RPM)")
+# plota_grafico(torque_induzido, omega_novo, "Torque (Nm)", "Velocidade (RPM)")
 
+## Incluindo os efeitos da Armadura ## 
+
+fmmra = [0, 42, 210, 420, 630, 840, 1260]
+if_efetiva = []
+EA0 = 233
+## calculando a nova corrente If* ## 
+
+for posicao in range(len(Ia)):
+    if_ef = Ia[posicao]-fmmra[posicao]/N
+    if_efetiva.append(if_ef)
+
+## calculando a nova velocidade ## 
+omega_efetivo = []
+for EA in tensao_armadura: 
+    print(EA)
+    omega_m = (EA/EA0)*omega
+    omega_efetivo.append(omega_m)
 
